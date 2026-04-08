@@ -55,7 +55,7 @@ pipeline {
                 minikube image load manojkumar947/my-app:latest
                 minikube kubectl -- apply -f k8s/deployment.yaml
                 minikube kubectl -- apply -f k8s/service.yaml
-                minikube service my--k8s-app-service
+                minikube service my-k8s-app-service
                 '''
             }
         }

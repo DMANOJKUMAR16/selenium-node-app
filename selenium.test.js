@@ -12,7 +12,7 @@ async function runTest() {
     assert.strictEqual(text, 'Sum is: 5');
     console.log('Test passed');
   } finally {
-    await driver.quit();
+    // await driver.quit();
     server.close();
   }
 }

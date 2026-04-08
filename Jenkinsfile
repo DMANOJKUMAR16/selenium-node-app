@@ -16,18 +16,25 @@ pipeline {
             }
         }
 
+        // ✅ ADD THIS STAGE
+        stage('Run Selenium Tests') {
+            steps {
+                sh 'npm test'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 sh '''
-                docker build -t my-k8s-app:${BUILD_NUMBER} .
-                docker tag my-k8s-app:${BUILD_NUMBER} laxmi916/my-k8s-app:latest
+                docker build -t my-app:${BUILD_NUMBER} .
+                docker tag my-app:${BUILD_NUMBER} manojkumar947/my-app:latest
                 '''
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                sh 'docker push laxmi916/my-k8s-app:latest'
+                sh 'docker push manojkumar947/my-app:latest'
             }
         }
 
@@ -45,13 +52,10 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 sh '''
-                # Load latest image into Minikube
-                # minikube image load laxmi916/my-k8s-app:latest
-
-                # Apply manifests
+                minikube image load manojkumar947/my-app:latest
                 minikube kubectl -- apply -f k8s/deployment.yaml
                 minikube kubectl -- apply -f k8s/service.yaml
-                minikube service my-k8s-app-service
+                minikube service my-app-service
                 '''
             }
         }

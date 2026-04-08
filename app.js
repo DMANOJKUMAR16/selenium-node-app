@@ -13,7 +13,7 @@ function createApp() {
   return app;
 }
 
-function startServer(port = 8080, host = '127.0.0.1') {
+function startServer(port = 2001, host = '127.0.0.1') {
   const app = createApp();
   const server = app.listen(port, host, () => {
     const address = server.address();
@@ -24,7 +24,7 @@ function startServer(port = 8080, host = '127.0.0.1') {
 }
 
 if (require.main === module) {
-  startServer(8080, '0.0.0.0');
+  startServer(2001, '0.0.0.0');
 }
 
 module.exports = { createApp, startServer };
